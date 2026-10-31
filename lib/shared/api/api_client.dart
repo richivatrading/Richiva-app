@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import '../models/notification.dart';
+import '../providers/bag_provider.dart' show BagItem;
 import '../models/product.dart';
 import '../models/order.dart';
 import '../models/review.dart';
-import '../models/notification.dart';
 
 class ApiClient {
   final Dio _dio;
@@ -54,8 +55,8 @@ class ApiClient {
       name: 'Dynamic ${json['title'].toString().substring(0, 1).toUpperCase()}${json['title'].toString().substring(1, 15)}...',
       brand: 'Richiva',
       imageUrl: 'https://picsum.photos/seed/${json['id']}/600/800',
-      price: 2500 + (json['id'] * 50),
-      comparePrice: 3500 + (json['id'] * 50),
+      price: (2500 + (json['id'] * 50)).toDouble(),
+      comparePrice: (3500 + (json['id'] * 50)).toDouble(),
       description: json['body'],
       images: [
         'https://picsum.photos/seed/${json['id']}-a/600/800',
@@ -148,7 +149,7 @@ class ApiClient {
     await Future.delayed(const Duration(seconds: 1));
     final newOrder = order.copyWith(
       id: 'ORD-${DateTime.now().millisecondsSinceEpoch}',
-      status: OrderStatus.confirmed,
+      status: OrderStatus.toShip,
       createdAt: DateTime.now(),
     );
     _mockOrders.insert(0, newOrder);
@@ -227,7 +228,7 @@ class ApiClient {
     await Future.delayed(const Duration(milliseconds: 500));
     final newReview = review.copyWith(
       id: 'rev_${DateTime.now().millisecondsSinceEpoch}',
-      timestamp: DateTime.now(),
+      createdAt: DateTime.now(),
     );
     _mockReviews.add(newReview);
     return newReview;

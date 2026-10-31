@@ -23,6 +23,30 @@ class Review {
     this.color,
   });
 
+  Review copyWith({
+    String? id,
+    String? productId,
+    String? userName,
+    double? rating,
+    String? title,
+    String? comment,
+    DateTime? createdAt,
+    bool? verifiedPurchase,
+    String? size,
+    String? color,
+  }) => Review(
+        id: id ?? this.id,
+        productId: productId ?? this.productId,
+        userName: userName ?? this.userName,
+        rating: rating ?? this.rating,
+        title: title ?? this.title,
+        comment: comment ?? this.comment,
+        createdAt: createdAt ?? this.createdAt,
+        verifiedPurchase: verifiedPurchase ?? this.verifiedPurchase,
+        size: size ?? this.size,
+        color: color ?? this.color,
+      );
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'productId': productId,

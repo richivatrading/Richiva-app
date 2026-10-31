@@ -217,25 +217,27 @@ class Order {
   int get itemCount => items.fold(0, (s, x) => s + x.quantity);
 
   Order copyWith({
+    String? id,
     OrderStatus? status,
     PaymentStatus? paymentStatus,
+    DateTime? createdAt,
     List<TrackingEvent>? timeline,
     String? cancelReason,
     ReturnRequest? returnRequest,
   }) =>
       Order(
-        id: id,
+        id: id ?? this.id,
         items: items,
         subtotal: subtotal,
         shippingFee: shippingFee,
         discount: discount,
         total: total,
-        paymentMethod: paymentMethod,
+        paymentMethod: paymentMethod ?? this.paymentMethod,
         paymentStatus: paymentStatus ?? this.paymentStatus,
         status: status ?? this.status,
         address: address,
-        shippingMethod: shippingMethod,
-        createdAt: createdAt,
+        shippingMethod: shippingMethod ?? this.shippingMethod,
+        createdAt: createdAt ?? this.createdAt,  // Handle nullable case
         voucherCode: voucherCode,
         timeline: timeline ?? this.timeline,
         cancelReason: cancelReason ?? this.cancelReason,

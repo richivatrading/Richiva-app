@@ -389,7 +389,7 @@ class _CustomGarmentScreenState extends State<CustomGarmentScreen> {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Request submitted'),
-        content: const Text('Your custom garment request has been received. Reference: CG-${DateTime.now().millisecondsSinceEpoch}'),
+        content: Text('Your custom garment request has been received. Reference: CG-${DateTime.now().millisecondsSinceEpoch}'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

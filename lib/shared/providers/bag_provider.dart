@@ -22,7 +22,7 @@ class BagItem {
     required this.color,
     required this.quantity,
     required this.price,
-  );
+  });
 
   BagItem copyWith({int? quantity}) => BagItem(
         productId: productId,
@@ -211,8 +211,8 @@ const Map<String, Voucher> kSeedVouchers = {
   ),
 };
 
-/// Deprecated alias — kept so any missed reference still compiles.
-/// New code should use `voucherCatalogProvider`.
+// Deprecated alias — kept so any missed reference still compiles.
+// New code should use `voucherCatalogProvider`.
 const Map<String, Voucher> kAvailableVouchers = kSeedVouchers;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -284,6 +284,12 @@ final voucherProvider =
 // ─────────────────────────────────────────────────────────────────────────────
 // Derived totals (unchanged)
 // ─────────────────────────────────────────────────────────────────────────────
+final bagDiscountProvider = Provider<double>((ref) {
+  final subtotal = ref.watch(bagSubtotalProvider);
+  final voucher = ref.watch(voucherProvider);
+  return voucher?.computeDiscount(subtotal) ?? 0;
+});
+
 final bagShippingProvider = Provider<double>((ref) {
   final subtotal = ref.watch(bagSubtotalProvider);
   final voucher = ref.watch(voucherProvider);
@@ -291,12 +297,6 @@ final bagShippingProvider = Provider<double>((ref) {
   if (voucher?.freeShipping == true) return 0;
   if (subtotal >= kFreeShippingThreshold) return 0;
   return kStandardShippingFee;
-});
-
-final bagDiscountProvider = Provider<double>((ref) {
-  final subtotal = ref.watch(bagSubtotalProvider);
-  final voucher = ref.watch(voucherProvider);
-  return voucher?.computeDiscount(subtotal) ?? 0;
 });
 
 final bagTotalProvider = Provider<double>((ref) {

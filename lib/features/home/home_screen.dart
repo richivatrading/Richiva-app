@@ -99,8 +99,8 @@ class HomeScreen extends ConsumerWidget {
                     error: (error, stackTrace) => Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: FullScreenError(
-                        title: 'Could not load products',
-                        message: error.toString(),
+                        error: error,
+                        message: 'Could not load products',
                         onRetry: () => ref.invalidate(newArrivalsProvider),
                       ),
                     ),
@@ -116,7 +116,7 @@ class HomeScreen extends ConsumerWidget {
             SliverToBoxAdapter(
               child: FeaturedRail(
                 title: 'Trending Now',
-                products: mockTrending,
+                products: const [],
                 actionRoute: '/categories',
               ),
             ),

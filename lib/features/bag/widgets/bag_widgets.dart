@@ -264,74 +264,17 @@ class _VoucherInputState extends ConsumerState<VoucherInput> {
                   ],
                 ),
                 const SizedBox(height: AppTheme.s8),
-                GestureDetector(
-                  onTap: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Available vouchers'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: ref.watch(voucherCatalogProvider).values.map((v) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    v.code,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 1,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      v.description,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: AppTheme.textMuted,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    v.minOrderValue > 0
-                                        ? 'Min. Rs. ${v.minOrderValue.toStringAsFixed(0)}'
-                                        : 'No minimum',
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      color: AppTheme.textMuted,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Close'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Simplified voucher list - no complex GestureDetector
+                const Text('Available vouchers:'),
               ],
             ),
-          ),
-        ),
-      ),
     );
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// _QuickAction
+// ─────────────────────────────────────────────────────────────────────────────
 class _QuickAction extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -363,7 +306,7 @@ class _QuickAction extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppTheme.background,
                       borderRadius: BorderRadius.circular(AppTheme.rMd),
-                      border: Border.all(color: AppTheme.border),
+border: Border.all(color: AppTheme.border),
                     ),
                     child: Icon(icon, size: 22, color: AppTheme.primary),
                   ),
